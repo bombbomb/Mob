@@ -12,6 +12,7 @@ var longitudeOrigin = process.env.LONG || -104.8;
 var geoMaxThrow =  process.env.THROW || 5;
 
 var endpoint =  process.env.ENDPOINT || 'https://google.com';
+var listenPort = parseInt(process.env.PORT) || 3000;
 
 console.log("Num Users: " + numUsers);
 console.log("APM: " + actionsPerMinute);
@@ -41,9 +42,9 @@ for (var i=0;i<numUsers;i++) {
 
 
 app.get('/', function (req, res) {
-    res.send('Mobbin')
+    res.send(users)
 });
 
-app.listen(3000, function () {
+app.listen(listenPort, function () {
     console.log('It\'s the mob!')
 });

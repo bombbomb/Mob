@@ -14,12 +14,27 @@
       {
         "Namespace": "aws:elasticbeanstalk:environment",
         "OptionName": "ServiceRole",
-        "Value": "AWSElasticBeanstalkEnhancedHealth"
+        "Value": "aws-elasticbeanstalk-service-role"
       },
       {
         "Namespace": "aws:elasticbeanstalk:application:environment",
         "OptionName": "ENDPOINT",
         "Value": "http://app.bbhydra.com"
+      },
+      {
+        "Namespace": "aws:elasticbeanstalk:application",
+        "OptionName": "Application Healthcheck URL",
+        "Value": "/"
+      },
+      {
+        "Namespace": "aws:elb:loadbalancer",
+        "OptionName": "CrossZone",
+        "Value": "true"
+      },
+      {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "PORT",
+        "Value": "80"
       }
     ]
   }
