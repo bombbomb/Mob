@@ -4,12 +4,12 @@ var app = express();
 var Moniker = require('moniker');
 
 
-var numUsers = process.env.USER_COUNT || 10;
+var numUsers = process.env.USER_COUNT || 100;
 var actionsPerMinute = process.env.APM || 10;
 
 var latitudeOrigin = process.env.LAT || 38.8;
 var longitudeOrigin = process.env.LONG || -104.8;
-var geoMaxThrow =  process.env.THROW || 5;
+var geoMaxThrow =  process.env.THROW || 10;
 
 var endpoint =  process.env.ENDPOINT || 'https://google.com';
 var listenPort = parseInt(process.env.PORT) || 3000;
@@ -42,7 +42,10 @@ for (var i=0;i<numUsers;i++) {
 
 
 app.get('/', function (req, res) {
-    res.send(users)
+    res.send({
+        'region': process.env.REGION,
+        'users': users
+    })
 });
 
 app.listen(listenPort, function () {

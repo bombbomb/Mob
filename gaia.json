@@ -1,25 +1,36 @@
 {
-  "regions": ["us-east-2", "us-west-1"],
+  "regions": ["us-east-2", "us-west-1", "ca-central-1", "eu-west-1", "eu-central-1", "ap-southeast-2", "ap-northeast-1", "sa-east-1"],
   "appName": "mob",
   "dnsZone": "bbhydra.com.",
   "dnsHostname": "mob",
+  "environmentVariables": {
+    "global": {
+      "ENDPOINT": "http://app.bbhydra.com",
+      "PORT": "80"
+    },
+    "regional": {
+      "us-east-2": {"LAT": "39", "LONG": "-113", "THROW": "10"},
+      "us-west-1": {"LAT": "37", "LONG": "-86", "THROW": "10"},
+      "ca-central-1": {"LAT": "56", "LONG": "-110", "THROW": "10"},
+      "eu-west-1": {"LAT": "48", "LONG": "21", "THROW": "5"},
+      "eu-central-1": {"LAT": "48", "LONG": "-4", "THROW": "5"},
+      "ap-southeast-2": {"LAT": "-29", "LONG": "145", "THROW": "8"},
+      "ap-northeast-1": {"LAT": "41", "LONG": "125", "THROW": "15"},
+      "sa-east-1": {"LAT": "-11", "LONG": "-58", "THROW": "20"}
+    }
+  },
   "elasticBeanstalk": {
     "solutionStack": "64bit Amazon Linux 2016.09 v4.0.0 running Node.js",
     "optionSettings": [
       {
         "Namespace": "aws:autoscaling:launchconfiguration",
         "OptionName": "InstanceType",
-        "Value": "t2.micro"
+        "Value": "t2.nano"
       },
       {
         "Namespace": "aws:elasticbeanstalk:environment",
         "OptionName": "ServiceRole",
         "Value": "aws-elasticbeanstalk-service-role"
-      },
-      {
-        "Namespace": "aws:elasticbeanstalk:application:environment",
-        "OptionName": "ENDPOINT",
-        "Value": "http://app.bbhydra.com"
       },
       {
         "Namespace": "aws:elasticbeanstalk:application",
@@ -30,11 +41,6 @@
         "Namespace": "aws:elb:loadbalancer",
         "OptionName": "CrossZone",
         "Value": "true"
-      },
-      {
-        "Namespace": "aws:elasticbeanstalk:application:environment",
-        "OptionName": "PORT",
-        "Value": "80"
       }
     ]
   }
