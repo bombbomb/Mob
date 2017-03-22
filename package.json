@@ -18,6 +18,7 @@
   "homepage": "https://github.com/bombbomb/Mob#readme",
   "dependencies": {
     "express": "^4.15.2",
-    "moniker": "^0.1.2"
+    "moniker": "^0.1.2",
+    "request": "^2.81.0"
   }
 }

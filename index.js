@@ -2,6 +2,7 @@
 var express = require('express');
 var app = express();
 var Moniker = require('moniker');
+var request = require('request');
 
 
 var numUsers = process.env.USER_COUNT || 100;
@@ -12,7 +13,7 @@ var longitudeOrigin = process.env.LONG || -104.8;
 var geoMaxThrow =  process.env.THROW || 10;
 
 var endpoint =  process.env.ENDPOINT || 'https://google.com';
-var listenPort = parseInt(process.env.PORT) || 3000;
+var listenPort = parseInt(process.env.PORT) || 3001;
 
 console.log("Num Users: " + numUsers);
 console.log("APM: " + actionsPerMinute);
@@ -30,13 +31,27 @@ for (var i=0;i<numUsers;i++) {
         long: longitudeOrigin + (((geoMaxThrow*2)*Math.random())-geoMaxThrow),
         lastPing: 0,
         personalLag: Math.random()*200,
-        clickDelay: userInterval
+        clickDelay: userInterval,
+        region: 'east-1'
     };
     users[i] = user;
     console.log(user);
     setInterval(function(userIndex){
         var user = users[userIndex];
-        console.log("Click from " + user.name);
+
+        request(
+            {
+                url: 'http://iris.bbhydra.com/post',
+                method: 'post',
+                json: true,
+                body: { type: "Mob", data: user }
+            }
+            , function (error, response, body) {
+                console.log('error:', error);
+                console.log('statusCode:', response && response.statusCode);
+                console.log('body:', body);
+            }
+        );
     }, user.clickDelay, i)
 }
 
