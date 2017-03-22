@@ -3,9 +3,12 @@
   "appName": "mob",
   "dnsZone": "bbhydra.com.",
   "dnsHostname": "mob",
+  "buildIgnorePatterns": [
+    "node_modules"
+  ],
   "environmentVariables": {
     "global": {
-      "ENDPOINT": "http://app.bbhydra.com",
+      "ENDPOINT": "http://hydra.bbhydra.com",
       "PORT": "80"
     },
     "regional": {
