@@ -41,15 +41,16 @@ for (var i=0;i<numUsers;i++) {
 
         request(
             {
-                url: 'http://iris.bbhydra.com/post',
+                url: 'http://' + endpoint + '/load',
                 method: 'post',
                 json: true,
-                body: { type: "Mob", data: user }
+                body: user
             }
             , function (error, response, body) {
                 console.log('error:', error);
                 console.log('statusCode:', response && response.statusCode);
                 console.log('body:', body);
+                // TODO update user last ping
             }
         );
     }, user.clickDelay, i)
