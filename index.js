@@ -5,14 +5,14 @@ var Moniker = require('moniker');
 var request = require('request');
 
 
-var numUsers = process.env.USER_COUNT || 100;
-var actionsPerMinute = process.env.APM || 10;
+var numUsers = process.env.USER_COUNT || 20;
+var actionsPerMinute = process.env.APM || 5;
 
-var latitudeOrigin = process.env.LAT || 38.8;
-var longitudeOrigin = process.env.LONG || -104.8;
+var latitudeOrigin = parseFloat(process.env.LAT) || 38.8;
+var longitudeOrigin = parseFloat(process.env.LONG) || -104.8;
 var geoMaxThrow =  process.env.THROW || 10;
 
-var endpoint =  process.env.ENDPOINT || 'https://google.com';
+var endpoint =  process.env.ENDPOINT || 'hydra.bbhydra.com';
 var listenPort = parseInt(process.env.PORT) || 3001;
 
 console.log("Num Users: " + numUsers);
@@ -38,7 +38,7 @@ for (var i=0;i<numUsers;i++) {
     console.log(user);
     setInterval(function(userIndex){
         var user = users[userIndex];
-
+        var myTimerStart = Date.now();
         request(
             {
                 url: 'http://' + endpoint + '/load',
@@ -47,10 +47,7 @@ for (var i=0;i<numUsers;i++) {
                 body: user
             }
             , function (error, response, body) {
-                console.log('error:', error);
-                console.log('statusCode:', response && response.statusCode);
-                console.log('body:', body);
-                // TODO update user last ping
+                users[userIndex].lastPing = Date.now() - myTimerStart;
             }
         );
     }, user.clickDelay, i)

@@ -8,7 +8,7 @@
   ],
   "environmentVariables": {
     "global": {
-      "ENDPOINT": "http://hydra.bbhydra.com",
+      "ENDPOINT": "hydra.bbhydra.com",
       "PORT": "80"
     },
     "regional": {
